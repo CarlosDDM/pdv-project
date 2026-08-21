@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="../Pdv.Application/Pdv.Application.csproj" />
+  <Project Path="../Pdv.Domain/Pdv.Domain.csproj" />
+  <Project Path="../Pdv.Infra.Data/Pdv.Infra.Data.csproj" />
+  <Project Path="../Pdv.Infra.Ioc/Pdv.Infra.Ioc.csproj" />
+  <Project Path="Pdv.Api.csproj" />
+</Solution>
