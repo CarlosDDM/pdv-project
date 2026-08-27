@@ -1,5 +1,5 @@
 ﻿namespace Pdv.Domain.Interfaces;
 
-public interface IProdutoRepository
+public interface IProductRepository
 {
 }

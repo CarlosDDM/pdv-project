@@ -8,7 +8,7 @@ public sealed class CompanyConfiguration : IEntityTypeConfiguration<Company>
 {
     public void Configure(EntityTypeBuilder<Company> builder)
     {
-        builder.ToTable("Companys");
+        builder.ToTable("Companies");
 
         builder.HasKey(c => c.Id);
         builder.Property(c => c.Id)
@@ -17,7 +17,7 @@ public sealed class CompanyConfiguration : IEntityTypeConfiguration<Company>
         builder.Property(c => c.Name)
             .IsRequired()
             .HasMaxLength(100);
-
+        
         builder.Property(c => c.Type)
             .HasConversion<string>();
 
@@ -31,11 +31,16 @@ public sealed class CompanyConfiguration : IEntityTypeConfiguration<Company>
         builder.Property(c => c.UpdatedAt);
 
         builder.HasIndex(c => new { c.Name, c.ReferedTo })
-            .HasDatabaseName("IX_Companys_Name_ReferedTo");
+            .HasDatabaseName("IX_Companies_Name_ReferedTo");
 
         builder.HasMany(c => c.Users)
             .WithOne()
             .HasForeignKey(u => u.CompanyId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        builder.HasMany(c => c.Stocks)
+            .WithOne()
+            .HasForeignKey(s => s.CompanyId)
             .OnDelete(DeleteBehavior.NoAction);
 
     }

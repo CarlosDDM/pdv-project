@@ -20,7 +20,7 @@ public sealed class OrderItemConfiguration : IEntityTypeConfiguration<OrderItem>
         builder.Property(oi => oi.ProductId)
             .IsRequired();
 
-        builder.Property(oi => oi.Qtd)
+        builder.Property(oi => oi.Quantity)
             .IsRequired();
 
         builder.Property(oi => oi.UnitPrice)

@@ -21,7 +21,7 @@ public sealed class DevolutionItemConfiguration : IEntityTypeConfiguration<Devol
         builder.Property(di => di.OrderItemId)
             .IsRequired();
 
-        builder.Property(di => di.Qtd)
+        builder.Property(di => di.Quantity)
             .IsRequired();
 
         builder.Property(di => di.Status)

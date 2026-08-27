@@ -25,9 +25,6 @@ public sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(p => p.Brand)
             .HasMaxLength(50);
 
-        builder.Property(p => p.StockId)
-            .IsRequired();
-
         builder.Property(p => p.Type)
             .IsRequired()
             .HasMaxLength(20)
@@ -47,10 +44,6 @@ public sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
 
         builder.HasIndex(p => p.Name)
             .HasDatabaseName("IX_Products_Name");
-
-        builder.HasIndex(p => p.StockId)
-            .IsUnique()
-            .HasDatabaseName("IX_Products_StockId");
 
         builder.HasMany(p => p.OrderItems)
             .WithOne()

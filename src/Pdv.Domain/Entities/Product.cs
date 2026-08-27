@@ -6,8 +6,7 @@ public sealed class Product
 {
     public Guid Id { get; private set; }
     public string? Cod { get; private set; }
-    public string Name { get; private set; }
-    public Guid StockId { get; private set; }
+    public string Name { get; private set; } = string.Empty;
     public string? Brand { get; private set; }
     public ProductType Type { get; private set; }
     public string? ImageUrl{ get; private set; }
@@ -23,4 +22,16 @@ public sealed class Product
     public IReadOnlyCollection<SupplierPurchasing> SuppliersPurchasing => _suppliersPurchasing.AsReadOnly();
 
     private Product() { }
+
+    private Product(string name, ProductType type, string? imageUrl = null, string? brand = null, string? cod = null)
+    {
+        this.Name = name;
+        this.Type = type;
+        this.ImageUrl = imageUrl;
+        this.Brand = brand;
+        this.Cod = cod;
+        this.CreatedAt = DateTime.UtcNow;
+    }
+
+    public static void Criar() { }
 }

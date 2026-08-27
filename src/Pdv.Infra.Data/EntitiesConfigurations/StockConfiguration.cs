@@ -14,7 +14,10 @@ public sealed class StockConfiguration : IEntityTypeConfiguration<Stock>
         builder.Property(s => s.Id)
             .ValueGeneratedOnAdd();
 
-        builder.Property(s => s.Qtd)
+        builder.Property(s => s.CompanyId)
+            .IsRequired();
+
+        builder.Property(s => s.Quantity)
             .IsRequired();
 
         builder.Property(s => s.CreatedAt)
@@ -25,12 +28,11 @@ public sealed class StockConfiguration : IEntityTypeConfiguration<Stock>
         builder.HasIndex(s => s.CreatedAt)
             .HasDatabaseName("IX_Stocks_CreatedAt");
 
+        builder.HasIndex(s => s.CompanyId)
+            .HasDatabaseName("IX_Stocks_CompanyId");
+
         builder.HasIndex(s => s.UpdatedAt)
             .HasDatabaseName("IX_Stocks_UpdatedAt");
 
-        builder.HasMany(s => s.Products)
-            .WithOne()
-            .HasForeignKey(p => p.StockId)
-            .OnDelete(DeleteBehavior.NoAction);
     }
 }

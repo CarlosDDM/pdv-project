@@ -13,8 +13,10 @@ public sealed class Company
     public DateTime? UpdatedAt { get; private set; }
 
     private readonly List<User> _users = [];
+    private readonly List<Stock> _stocks = [];
 
     public IReadOnlyCollection<User> Users => _users.AsReadOnly();
+    public IReadOnlyCollection<Stock> Stocks => _stocks.AsReadOnly();
 
     private Company() { }
 }
