@@ -35,14 +35,14 @@ public sealed class Product
 
     public static Result<Product> Create(string name, ProductType type, string? brand = null, string? barcode = null)
     {
-        if (string.IsNullOrWhiteSpace(name))
-            return Result<Product>.Fail("O nome não pode ser vazio");
+        if (string.IsNullOrWhiteSpace(name) || name.Length > 100)
+            return Result<Product>.Fail("O nome deve ter entre 1 e 100 caracteres");
 
         if (!Enum.IsDefined<ProductType>(type))
             return Result<Product>.Fail($"Tipo de produto inválido: {type}");
 
-        if (brand is not null && string.IsNullOrWhiteSpace(brand))
-            return Result<Product>.Fail("A marca não pode ser vazia");
+        if (brand is not null && (string.IsNullOrWhiteSpace(brand) || brand.Length > 50))
+            return Result<Product>.Fail("A marca deve ter entre 1 e 50 caracteres");
 
         if (barcode is not null && (barcode.Length < 8 || barcode.Length > 20))
             return Result<Product>.Fail("O código de barras deve ter entre 8 e 20 caracteres");
