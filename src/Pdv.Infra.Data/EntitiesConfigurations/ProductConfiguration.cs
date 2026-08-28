@@ -19,8 +19,8 @@ public sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
             .IsRequired()
             .HasMaxLength(100);
         
-        builder.Property(p => p.Cod)
-            .HasMaxLength(50);
+        builder.Property(p => p.Barcode)
+            .HasMaxLength(20);
 
         builder.Property(p => p.Brand)
             .HasMaxLength(50);
@@ -38,9 +38,9 @@ public sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
         
         builder.Property(p => p.UpdatedAt);
 
-        builder.HasIndex(p => p.Cod)
+        builder.HasIndex(p => p.Barcode)
             .IsUnique()
-            .HasDatabaseName("IX_Products_Cod");
+            .HasDatabaseName("IX_Products_Barcode");
 
         builder.HasIndex(p => p.Name)
             .HasDatabaseName("IX_Products_Name");

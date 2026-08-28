@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Pdv.Infra.Data.Context;
@@ -11,9 +12,11 @@ using Pdv.Infra.Data.Context;
 namespace Pdv.Infra.Data.Migrations
 {
     [DbContext(typeof(PdvDbContext))]
-    partial class PdvDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260828224550_RenameProductCodToBarcode")]
+    partial class RenameProductCodToBarcode
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
