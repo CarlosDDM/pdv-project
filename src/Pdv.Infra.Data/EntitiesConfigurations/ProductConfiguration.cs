@@ -59,5 +59,10 @@ public sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
             .WithOne()
             .HasForeignKey(sp => sp.ProductId)
             .OnDelete(DeleteBehavior.NoAction);
+
+        builder.HasMany(p => p.Stocks)
+            .WithOne()
+            .HasForeignKey(s => s.ProductId)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

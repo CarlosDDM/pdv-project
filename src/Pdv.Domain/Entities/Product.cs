@@ -17,10 +17,12 @@ public sealed class Product
     private readonly List<SeelingPrice> _seelingPrices = [];
     private readonly List<OrderItem> _orderItems = [];
     private readonly List<SupplierPurchasing> _suppliersPurchasing = [];
+    private readonly List<Stock> _stocks = []; 
 
     public IReadOnlyCollection<SeelingPrice> SeelingPrices => _seelingPrices.AsReadOnly();
     public IReadOnlyCollection<OrderItem> OrderItems => _orderItems.AsReadOnly();
     public IReadOnlyCollection<SupplierPurchasing> SuppliersPurchasing => _suppliersPurchasing.AsReadOnly();
+    public IReadOnlyCollection<Stock> Stocks => _stocks.AsReadOnly();
 
     private Product() { }
 
