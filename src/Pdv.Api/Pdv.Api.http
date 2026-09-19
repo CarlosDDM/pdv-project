@@ -1,6 +1,69 @@
-@Pdv.Api_HostAddress = http://localhost:5121
-
-GET {{Pdv.Api_HostAddress}}/weatherforecast/
-Accept: application/json
+@Pdv.Api_HostAddress = http://localhost:5121/api
+@Product_Id_No_Exist = 00000000-0000-0000-0000-000000000000
 
 ###
+POST {{Pdv.Api_HostAddress}}/product
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Refrigerante Cola 2L",
+  "type": "Lt",
+  "brand": "Marca Teste",
+  "barcode": "7891234567890"
+}
+
+###
+POST {{Pdv.Api_HostAddress}}/product
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Bucha",
+  "type": "Unit",
+  "updatedAt": "2026"
+}
+
+###
+GET {{Pdv.Api_HostAddress}}/product/01a06e0b-fd0e-7cbf-9cab-8e46a53bef17
+Content-Type: application/json
+
+###
+GET {{Pdv.Api_HostAddress}}/product/{{Product_Id_No_Exist}}
+Content-Type: application/json
+
+###
+GET {{Pdv.Api_HostAddress}}/product/barcode/78912345678901
+Content-Type: application/json
+
+###
+DELETE {{Pdv.Api_HostAddress}}/product/01a06e0b-fd0e-7cbf-9cab-8e46a53bef17
+Content-Type: application/json
+
+###
+DELETE {{Pdv.Api_HostAddress}}/product/{{Product_Id_No_Exist}}
+Content-Type: application/json
+
+###
+PUT {{Pdv.Api_HostAddress}}/product/01a06e10-b10f-7447-9ae5-938cc2432df5
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Refrigerante Cola 2L",
+  "type": "Lt",
+  "brand": "Coca Cola",
+  "barcode": "7891234567890"
+}
+
+###
+PUT {{Pdv.Api_HostAddress}}/product/01a09268-0f98-7b1c-a27c-31d325372e76
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Refrigerante Cola 2L",
+  "type": "Lt",
+  "brand": "Coca Cola",
+  "barcode": "78912345678901"
+}

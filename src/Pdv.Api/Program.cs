@@ -1,3 +1,6 @@
+using FluentValidation;
+using Pdv.Api.Validators.Product;
+using Pdv.Application.Commands.CreateProduct;
 using Pdv.Infra.Ioc;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,6 +8,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+builder.Services.AddMediatR(cfg => 
+    cfg.RegisterServicesFromAssemblies(typeof(CreateProductCommand).Assembly));
+
+builder.Services.AddValidatorsFromAssemblyContaining<CreateProductCommandValidator>();
+
 builder.Services.AddInfrastructure(builder.Configuration);
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -16,6 +25,10 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseSwaggerUI(opt =>
+    {
+        opt.SwaggerEndpoint("/openapi/v1.json", "Pdv.Api v1");
+    });
 }
 
 app.UseHttpsRedirection();

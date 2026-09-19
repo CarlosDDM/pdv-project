@@ -1,6 +1,6 @@
 ﻿using Pdv.Domain.Common;
 
-namespace Pdv.Domain.Entities;  
+namespace Pdv.Domain.Entities;
 
 public sealed class Stock
 {

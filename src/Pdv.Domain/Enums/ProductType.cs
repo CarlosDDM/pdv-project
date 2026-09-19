@@ -1,8 +1,11 @@
-﻿namespace Pdv.Domain.Enums;
+﻿using System.Text.Json.Serialization;
 
+namespace Pdv.Domain.Enums;
+
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum ProductType
 {
-    Unt = 1,
+    Unit = 1,
     Kg = 2,
     Lt = 3,
 }

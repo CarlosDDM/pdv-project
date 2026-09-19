@@ -10,6 +10,8 @@ public sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
     {
         builder.ToTable("Products");
 
+        builder.HasQueryFilter(p => !p.IsDeleted);
+
         builder.HasKey(p => p.Id);
 
         builder.Property(p => p.Id)
@@ -38,8 +40,14 @@ public sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
         
         builder.Property(p => p.UpdatedAt);
 
+        builder.Property(p => p.IsDeleted)
+            .HasDefaultValue(false);
+
+        builder.Property(p => p.DeletedAt);
+
         builder.HasIndex(p => p.Barcode)
             .IsUnique()
+            .HasFilter("\"IsDeleted\" = false")
             .HasDatabaseName("IX_Products_Barcode");
 
         builder.HasIndex(p => p.Name)

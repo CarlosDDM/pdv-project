@@ -253,9 +253,17 @@ namespace Pdv.Infra.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("ImageUrl")
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -274,7 +282,8 @@ namespace Pdv.Infra.Data.Migrations
 
                     b.HasIndex("Barcode")
                         .IsUnique()
-                        .HasDatabaseName("IX_Products_Barcode");
+                        .HasDatabaseName("IX_Products_Barcode")
+                        .HasFilter("\"IsDeleted\" = false");
 
                     b.HasIndex("Name")
                         .HasDatabaseName("IX_Products_Name");

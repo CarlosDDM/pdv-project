@@ -10,6 +10,6 @@ public sealed class DevolutionItem
     public int Quantity { get; private set; }
     public DevolutionItemStatus Status { get; private set; }
     public DateTime CreatedAt { get; private set; }
-    
+
     private DevolutionItem() { }
 }
