@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Pdv.Api/Pdv.Api.csproj" />
+    <Project Path="src/Pdv.Application/Pdv.Application.csproj" />
+    <Project Path="src/Pdv.Domain/Pdv.Domain.csproj" />
+    <Project Path="src/Pdv.Infra.Data/Pdv.Infra.Data.csproj" />
+    <Project Path="src/Pdv.Infra.Ioc/Pdv.Infra.Ioc.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Pdv.Domain.Tests/Pdv.Domain.Tests.csproj" Id="e7b76a33-33f4-4399-ac75-fa6f7d9a2c4d" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".gitignore" />
+  </Folder>
+</Solution>

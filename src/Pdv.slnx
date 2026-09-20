@@ -1,7 +1,0 @@
-<Solution>
-  <Project Path="Pdv.Api/Pdv.Api.csproj" />
-  <Project Path="Pdv.Application/Pdv.Application.csproj" />
-  <Project Path="Pdv.Domain/Pdv.Domain.csproj" />
-  <Project Path="Pdv.Infra.Data/Pdv.Infra.Data.csproj" />
-  <Project Path="Pdv.Infra.Ioc/Pdv.Infra.Ioc.csproj" />
-</Solution>
