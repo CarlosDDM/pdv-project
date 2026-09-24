@@ -96,12 +96,12 @@ public sealed class Product
        this.DeletedAt = DateTime.UtcNow;
     }
 
-    public Result SetImage(string imageUrl)
+    public Result SetImage(string imagePath)
     {
-        if (string.IsNullOrWhiteSpace(imageUrl))
-            return Result.Fail("URL da imagem inválida.");
+        if (string.IsNullOrWhiteSpace(imagePath))
+            return Result.Fail("Path da imagem inválida.");
 
-        this.ImageUrl = imageUrl;
+        this.ImageUrl = imagePath;
         this.UpdatedAt = DateTime.UtcNow;
         return Result.Ok();
     }
