@@ -20,8 +20,11 @@ public sealed class SeelingPrice
 
     public static Result<SeelingPrice> Create(Guid productId, decimal price)
     {
+        if (productId == Guid.Empty)
+            return Result<SeelingPrice>.Fail("O Id do produto é obrigatório e não pode ser vazio.");
+
         if (price <= 0)
-            return Result<SeelingPrice>.Fail("O preço não pode ser menor que 0.");
+            return Result<SeelingPrice>.Fail("O preço não pode ser menor ou igual a 0.");
 
         return Result<SeelingPrice>.Ok(new SeelingPrice(productId, price));
     }

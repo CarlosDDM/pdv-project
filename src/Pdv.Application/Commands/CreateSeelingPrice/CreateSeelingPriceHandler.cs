@@ -24,7 +24,7 @@ public sealed class CreateSeelingPriceHandler : IRequestHandler<CreateSeelingPri
     {
         _logger.LogInformation("Handling CreateSeelingPriceCommand para o Product: {ProductId}", command.ProductId);
 
-        var product = await _productRepository.FirstOrDefaultAsync(command.ProductId);
+        var product = await _productRepository.FirstOrDefaultAsync(command.ProductId, ct);
 
         if (product is null) 
         {
@@ -42,7 +42,7 @@ public sealed class CreateSeelingPriceHandler : IRequestHandler<CreateSeelingPri
 
         var seelingPrice = result.Value!;
 
-        await _repository.AddAsync(seelingPrice);
+        await _repository.AddAsync(seelingPrice, ct) ;
         _logger.LogInformation("SeelingPrice criado com sucesso. Id: {Id}", seelingPrice.Id);
 
         return Result<SeelingPriceResponse>.Ok(new SeelingPriceResponse(
