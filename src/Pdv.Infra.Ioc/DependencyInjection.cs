@@ -41,6 +41,7 @@ public static class DependencyInjection
         });
 
         services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<ISeelingPriceRepository, SeelingPriceRepository>();
         services.AddScoped<IStorageService, S3StorageService>();
 
 

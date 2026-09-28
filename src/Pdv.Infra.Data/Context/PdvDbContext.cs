@@ -9,6 +9,7 @@ public sealed class PdvDbContext: DbContext
     {}
 
     public DbSet<Product> Products => Set<Product>();
+    public DbSet<SeelingPrice> SeelingPrices => Set<SeelingPrice>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
