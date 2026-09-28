@@ -7,7 +7,7 @@ public class DeleteProductCommandValidator : AbstractValidator<DeleteProductComm
 {
     public DeleteProductCommandValidator()
     {
-        RuleFor(x => x.id)
+        RuleFor(x => x.Id)
             .NotEmpty().WithMessage("O Id do produto é obrigatório.")
             .NotEqual(Guid.Empty).WithMessage("O Id do produto não pode ser um Guid zerado.");
     }
