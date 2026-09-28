@@ -17,21 +17,27 @@ public sealed class DeleteProductHandler : IRequestHandler<DeleteProductCommand,
     }
     public async Task<Result> Handle(DeleteProductCommand command, CancellationToken ct)
     {
-        var product = await _repository.FirstOrDefaultAsync(command.id, ct);
+        var product = await _repository.FirstOrDefaultAsync(command.Id, ct);
 
         if (product is null)
         {
-            _logger.LogWarning("Product com id {ProductId} não encontrado.", command.id);
+            _logger.LogWarning("Product com id {ProductId} não encontrado.", command.Id);
             return Result.Fail("Product não encontrado.");   
         }
 
-        product.MarkAsDeleted();
+        var result = product.MarkAsDeleted();
+
+        if (result.IsFailure)
+        {
+            _logger.LogError("Erro ao deletar o produto com id {ProductId}.", command.Id);
+            return Result.Fail(result.Error);
+        }
 
         var deleted = await _repository.SoftDeleteAsync(product, ct);
 
         if (!deleted)
         {
-            _logger.LogError("Erro ao deletar o produto com id {ProductId}.", command.id);
+            _logger.LogError("Erro ao deletar o produto com id {ProductId}.", command.Id);
             return Result.Fail("Erro ao deletar o produto.");
         }
 

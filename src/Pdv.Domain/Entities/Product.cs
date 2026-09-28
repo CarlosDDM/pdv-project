@@ -88,12 +88,14 @@ public sealed class Product
         return Result.Ok();
     }
 
-    public void MarkAsDeleted()
+    public Result MarkAsDeleted()
     {
-        if (this.IsDeleted) return;
+        if (this.IsDeleted) 
+            return Result.Fail("Product já foi apagado.");
 
        this.IsDeleted = true;
        this.DeletedAt = DateTime.UtcNow;
+        return Result.Ok();
     }
 
     public Result SetImage(string imagePath)
