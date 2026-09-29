@@ -30,6 +30,10 @@ public sealed class ProductRepository : IProductRepository
 
         var query = _context.Products
             .AsNoTracking()
+            .Include(x => x.SeelingPrices
+                .OrderByDescending(p => p.CreatedAt)
+                .ThenByDescending(p => p.Id)
+                .Take(1))
             .OrderBy(x => x.Name)
             .ThenBy(x => x.Id);
 
