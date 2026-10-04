@@ -1,4 +1,8 @@
-﻿namespace Pdv.Domain.Enums;
+﻿using System.Text.Json.Serialization;
+
+namespace Pdv.Domain.Enums;
+
+[JsonConverter(typeof(JsonStringEnumConverter))]
 
 public enum CompanyType
 {
