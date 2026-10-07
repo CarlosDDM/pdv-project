@@ -48,6 +48,12 @@ public sealed class Company
         if (!Enum.IsDefined<CompanyType>(type))
             return Result<Company>.Fail("Tipo de empresa inválido.");
 
+        if (cnpj is not null && cnpj.Length > 14)
+            return Result<Company>.Fail("CNPJ inválido.");
+
+        if (referedTo is not null && referedTo == Guid.Empty)
+            return Result<Company>.Fail("Id inválido.");
+
         return Result<Company>.Ok(new Company(name, type, cnpj, referedTo));
     }
 
@@ -58,6 +64,12 @@ public sealed class Company
 
         if (!Enum.IsDefined<CompanyType>(type))
             return Result<Company>.Fail("Tipo de empresa inválido.");
+
+        if (cnpj is not null && cnpj.Length > 14)
+            return Result<Company>.Fail("CNPJ inválido");
+
+        if (referedTo is not null && referedTo == Guid.Empty)
+            return Result<Company>.Fail("Id inválido.");
 
         UpdateCompany(name, type, cnpj, referedTo);
 
