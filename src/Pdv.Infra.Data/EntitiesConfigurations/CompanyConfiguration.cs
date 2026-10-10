@@ -11,6 +11,7 @@ public sealed class CompanyConfiguration : IEntityTypeConfiguration<Company>
         builder.ToTable("Companies");
 
         builder.HasKey(c => c.Id);
+
         builder.Property(c => c.Id)
             .ValueGeneratedOnAdd();
 

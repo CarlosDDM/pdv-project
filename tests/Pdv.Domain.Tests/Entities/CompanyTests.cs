@@ -251,4 +251,28 @@ public sealed class CompanyTests
         Assert.Null(company.ReferedTo);
         Assert.Null(company.UpdatedAt);
     }
+
+    [Fact]
+    public void DisableCompany_ComIsDisabledFalse_DeveDesabilitarCompany()
+    {
+        var company = CriarCompanyValido();
+
+        var result = company.DisableCompany();
+
+        Assert.True(result.IsSuccess);
+        Assert.True(company.IsDisabled);
+        Assert.NotNull(company.UpdatedAt);
+    }
+
+    [Fact]
+    public void DisableCompany_ComIsDisabledTrue_DeveRetornarError()
+    {
+        var company = CriarCompanyValido();
+        company.DisableCompany();
+
+        var result = company.DisableCompany();
+
+        Assert.True(result.IsFailure);
+        Assert.Equal("Company já desabilitada.", result.Error);
+    }
 }

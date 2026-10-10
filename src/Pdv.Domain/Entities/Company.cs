@@ -12,6 +12,7 @@ public sealed class Company
     public CompanyType Type { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
+    public bool IsDisabled { get; private set; }
 
     private readonly List<User> _users = [];
     private readonly List<Stock> _stocks = [];
@@ -66,12 +67,23 @@ public sealed class Company
             return Result<Company>.Fail("Tipo de empresa inválido.");
 
         if (cnpj is not null && cnpj.Length > 14)
-            return Result<Company>.Fail("CNPJ inválido");
+            return Result<Company>.Fail("CNPJ inválido.");
 
         if (referedTo is not null && referedTo == Guid.Empty)
             return Result<Company>.Fail("Id inválido.");
 
         UpdateCompany(name, type, cnpj, referedTo);
+
+        return Result.Ok();
+    }
+
+    public Result DisableCompany()
+    {
+        if (this.IsDisabled)
+            return Result.Fail("Company já desabilitada.");
+
+        this.IsDisabled = true;
+        this.UpdatedAt = DateTime.UtcNow;
 
         return Result.Ok();
     }
