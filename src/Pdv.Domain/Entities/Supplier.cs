@@ -2,7 +2,7 @@
 
 public sealed class Supplier
 {
-    public Guid Id { get; private set; }
+    public int Id { get; private set; }
     public string Name { get; private set; }
     public string Cnpj { get; private set; }
     public string Phone { get; private set; }

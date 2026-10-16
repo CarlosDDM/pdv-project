@@ -28,6 +28,9 @@ public sealed class CompanyConfiguration : IEntityTypeConfiguration<Company>
             .IsRequired()
             .HasMaxLength(18);
 
+        builder.Property(c => c.IsDisabled)
+            .HasDefaultValue(false);
+
         builder.Property(c => c.CreatedAt)
             .IsRequired();
 

@@ -6,7 +6,7 @@ namespace Pdv.Application.Commands.UpdateProductImage;
 
 public sealed record UpdateProductImageCommand
     (
-        Guid Id,
+        int Id,
         Stream File,
         string FileName,
         string ContentType

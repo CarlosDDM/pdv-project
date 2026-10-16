@@ -4,9 +4,9 @@ namespace Pdv.Domain.Entities;
 
 public sealed class OrderItem
 {
-    public Guid Id { get; private set; }
-    public Guid OrderId { get; private set; }
-    public Guid ProductId { get; private set; }
+    public int Id { get; private set; }
+    public int OrderId { get; private set; }
+    public int ProductId { get; private set; }
     public int Quantity { get; private set; }
     public decimal UnitPrice { get; private set; }
     public decimal Discount { get; private set; }
@@ -15,7 +15,7 @@ public sealed class OrderItem
     private readonly List<DevolutionItem> _devolutionItems = [];
     public IReadOnlyCollection<DevolutionItem> DevolutionItems => _devolutionItems.AsReadOnly();
 
-    private OrderItem(Guid orderId, Guid productId, int quantity, decimal unitPrice, decimal discount)
+    private OrderItem(int orderId, int productId, int quantity, decimal unitPrice, decimal discount)
     {
         this.OrderId = orderId;
         this.ProductId = productId;
@@ -25,13 +25,13 @@ public sealed class OrderItem
         this.CreatedAt = DateTime.UtcNow;
     }
 
-    public static Result<OrderItem> Create(Guid orderId, Guid productId, int quantity, decimal unitPrice, decimal discount)
+    public static Result<OrderItem> Create(int orderId, int productId, int quantity, decimal unitPrice, decimal discount)
     {
-        if (orderId == Guid.Empty)
-            return Result<OrderItem>.Fail("OrderId não pode ser vazio.");
+        if (orderId <= 0)
+            return Result<OrderItem>.Fail("OrderId não pode ser negativo ou menor que zero");
 
-        if (productId == Guid.Empty)
-            return Result<OrderItem>.Fail("ProductId não pode ser vazio.");
+        if (productId <= 0)
+            return Result<OrderItem>.Fail("ProductId não pode ser negativo ou menor que zero");
 
         if (quantity <= 0)
             return Result<OrderItem>.Fail("Quantity precisa ser um valor positivo.");

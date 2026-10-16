@@ -14,7 +14,7 @@ public sealed class CreateSeelingPriceCommandValidator : AbstractValidator<Creat
             .WithMessage("O preço deve ter no máximo 2 casas decimais.");
 
         RuleFor(x => x.ProductId)
-            .NotEmpty()
-            .WithMessage("O Id do produto é obrigatório e não pode ser vazio.");
+            .NotEmpty().WithMessage("O Id do produto não pode ser vazio.")
+            .GreaterThan(0).WithMessage("O Id do produto não pode ser zerado ou negativo.");
     }
 }

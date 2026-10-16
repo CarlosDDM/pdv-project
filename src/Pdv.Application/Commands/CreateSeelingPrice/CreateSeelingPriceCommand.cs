@@ -5,5 +5,5 @@ using Pdv.Domain.Common;
 namespace Pdv.Application.Commands.CreateSeelingPrice;
 
 public sealed record CreateSeelingPriceCommand(
-    Guid ProductId,
+    int ProductId,
     decimal Price) : IRequest<Result<SeelingPriceResponse>>;

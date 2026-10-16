@@ -3,4 +3,4 @@ using Pdv.Domain.Common;
 
 namespace Pdv.Application.Commands.DeleteProduct;
 
-public sealed record DeleteProductCommand(Guid Id) : IRequest<Result>;
+public sealed record DeleteProductCommand(int Id) : IRequest<Result>;

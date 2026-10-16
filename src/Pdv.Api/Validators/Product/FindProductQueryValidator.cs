@@ -9,6 +9,6 @@ public class FindProductQueryValidator : AbstractValidator<FindProductQuery>
     {
         RuleFor(x => x.Id)
             .NotEmpty().WithMessage("O Id do produto é obrigatório.")
-            .NotEqual(Guid.Empty).WithMessage("O Id do produto não pode ser um Guid zerado.");
+            .GreaterThan(0).WithMessage("O Id do produto é obrigatório e não pode ser zerado ou negativo.");
     }
 }

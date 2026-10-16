@@ -46,7 +46,7 @@ public sealed class ProductRepository : IProductRepository
         return await _context.Products.AnyAsync(x => x.Barcode == barcode, ct);
     }
 
-    public async Task<Product?> FirstOrDefaultAsync(Guid id, CancellationToken ct = default)
+    public async Task<Product?> FirstOrDefaultAsync(int id, CancellationToken ct = default)
     {
       return await _context.Products
             .AsNoTracking()

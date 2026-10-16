@@ -14,14 +14,14 @@ public sealed class CreateSeelingPriceHandlerTests
     private readonly ILogger<CreateSeelingPriceHandler> _logger = Substitute.For<ILogger<CreateSeelingPriceHandler>>();
     private readonly CreateSeelingPriceHandler _handler;
 
-    private static readonly Guid ProductId = Guid.Parse("9AC1A6F1-4A87-4624-B5F5-B74D494E21E0");
+    private static readonly int ProductId = 1;
 
     public CreateSeelingPriceHandlerTests()
     {
         _handler = new CreateSeelingPriceHandler(_seelingPriceRepository, _productRepository, _logger);
     }
 
-    private static CreateSeelingPriceCommand CriarCommand(Guid? productId = null, decimal? price = null) 
+    private static CreateSeelingPriceCommand CriarCommand(int? productId = null, decimal? price = null) 
     => new(productId ?? ProductId, price ?? 25.5m);
 
     [Fact]
@@ -65,7 +65,7 @@ public sealed class CreateSeelingPriceHandlerTests
     [Fact]
     public async Task Handle_ComProductIdInvalido_DeveRetornarError()
     {
-        var command = CriarCommand(Guid.Empty);
+        var command = CriarCommand(-1);
 
         _productRepository
             .FirstOrDefaultAsync(command.ProductId, Arg.Any<CancellationToken>())

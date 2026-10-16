@@ -12,8 +12,8 @@ using Pdv.Infra.Data.Context;
 namespace Pdv.Infra.Data.Migrations
 {
     [DbContext(typeof(PdvDbContext))]
-    [Migration("20260828224550_RenameProductCodToBarcode")]
-    partial class RenameProductCodToBarcode
+    [Migration("20261016033038_FirstMigration")]
+    partial class FirstMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,32 +27,48 @@ namespace Pdv.Infra.Data.Migrations
 
             modelBuilder.Entity("Pdv.Domain.Entities.Company", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Cnpj")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(18)
+                        .HasColumnType("character varying(18)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDisabled")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<Guid?>("ReferedTo")
-                        .HasColumnType("uuid");
+                    b.Property<int?>("ReferedTo")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Type")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Cnpj")
+                        .IsUnique()
+                        .HasDatabaseName("IX_Companies_Cnpj");
+
+                    b.HasIndex("ReferedTo");
 
                     b.HasIndex("Name", "ReferedTo")
                         .HasDatabaseName("IX_Companies_Name_ReferedTo");
@@ -62,15 +78,17 @@ namespace Pdv.Infra.Data.Migrations
 
             modelBuilder.Entity("Pdv.Domain.Entities.Devolution", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("OrderId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Reason")
                         .HasMaxLength(500)
@@ -92,18 +110,20 @@ namespace Pdv.Infra.Data.Migrations
 
             modelBuilder.Entity("Pdv.Domain.Entities.DevolutionItem", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("DevolutionId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("DevolutionId")
+                        .HasColumnType("integer");
 
-                    b.Property<Guid>("OrderItemId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("OrderItemId")
+                        .HasColumnType("integer");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
@@ -128,9 +148,11 @@ namespace Pdv.Infra.Data.Migrations
 
             modelBuilder.Entity("Pdv.Domain.Entities.Order", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<decimal>("Amount")
                         .HasPrecision(18, 2)
@@ -147,8 +169,8 @@ namespace Pdv.Infra.Data.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -163,9 +185,11 @@ namespace Pdv.Infra.Data.Migrations
 
             modelBuilder.Entity("Pdv.Domain.Entities.OrderItem", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -174,11 +198,11 @@ namespace Pdv.Infra.Data.Migrations
                         .HasPrecision(18, 2)
                         .HasColumnType("numeric(18,2)");
 
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("OrderId")
+                        .HasColumnType("integer");
 
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
@@ -200,9 +224,11 @@ namespace Pdv.Infra.Data.Migrations
 
             modelBuilder.Entity("Pdv.Domain.Entities.OrderPayment", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<decimal>("Amount")
                         .HasPrecision(18, 2)
@@ -211,8 +237,8 @@ namespace Pdv.Infra.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("OrderId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("PaymentMethod")
                         .IsRequired()
@@ -232,9 +258,11 @@ namespace Pdv.Infra.Data.Migrations
 
             modelBuilder.Entity("Pdv.Domain.Entities.Product", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Barcode")
                         .HasMaxLength(20)
@@ -247,17 +275,22 @@ namespace Pdv.Infra.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("ImageUrl")
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
-
-                    b.Property<Guid?>("StockId")
-                        .HasColumnType("uuid");
 
                     b.Property<string>("Type")
                         .IsRequired()
@@ -271,21 +304,22 @@ namespace Pdv.Infra.Data.Migrations
 
                     b.HasIndex("Barcode")
                         .IsUnique()
-                        .HasDatabaseName("IX_Products_Barcode");
+                        .HasDatabaseName("IX_Products_Barcode")
+                        .HasFilter("\"IsDeleted\" = false");
 
                     b.HasIndex("Name")
                         .HasDatabaseName("IX_Products_Name");
-
-                    b.HasIndex("StockId");
 
                     b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("Pdv.Domain.Entities.Role", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Type")
                         .IsRequired()
@@ -298,9 +332,11 @@ namespace Pdv.Infra.Data.Migrations
 
             modelBuilder.Entity("Pdv.Domain.Entities.SeelingPrice", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -309,8 +345,8 @@ namespace Pdv.Infra.Data.Migrations
                         .HasPrecision(18, 2)
                         .HasColumnType("numeric(18,2)");
 
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -322,15 +358,20 @@ namespace Pdv.Infra.Data.Migrations
 
             modelBuilder.Entity("Pdv.Domain.Entities.Stock", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
 
-                    b.Property<Guid>("CompanyId")
-                        .HasColumnType("uuid");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
@@ -340,8 +381,7 @@ namespace Pdv.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompanyId")
-                        .HasDatabaseName("IX_Stocks_CompanyId");
+                    b.HasIndex("CompanyId");
 
                     b.HasIndex("CreatedAt")
                         .HasDatabaseName("IX_Stocks_CreatedAt");
@@ -349,14 +389,20 @@ namespace Pdv.Infra.Data.Migrations
                     b.HasIndex("UpdatedAt")
                         .HasDatabaseName("IX_Stocks_UpdatedAt");
 
+                    b.HasIndex("ProductId", "CompanyId")
+                        .IsUnique()
+                        .HasDatabaseName("IX_Stocks_ProductId_CompanyId");
+
                     b.ToTable("Stocks", (string)null);
                 });
 
             modelBuilder.Entity("Pdv.Domain.Entities.Supplier", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Cnpj")
                         .IsRequired()
@@ -394,18 +440,20 @@ namespace Pdv.Infra.Data.Migrations
 
             modelBuilder.Entity("Pdv.Domain.Entities.SupplierPurchasing", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
 
-                    b.Property<Guid>("SupplierId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("SupplierId")
+                        .HasColumnType("integer");
 
                     b.Property<decimal>("UnitPrice")
                         .HasPrecision(18, 2)
@@ -424,12 +472,14 @@ namespace Pdv.Infra.Data.Migrations
 
             modelBuilder.Entity("Pdv.Domain.Entities.User", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
 
-                    b.Property<Guid>("CompanyId")
-                        .HasColumnType("uuid");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -443,8 +493,8 @@ namespace Pdv.Infra.Data.Migrations
                         .HasMaxLength(60)
                         .HasColumnType("character varying(60)");
 
-                    b.Property<Guid>("RoleId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("RoleId")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -459,6 +509,14 @@ namespace Pdv.Infra.Data.Migrations
                         .HasDatabaseName("IX_Users_Name_RoleId");
 
                     b.ToTable("Users", (string)null);
+                });
+
+            modelBuilder.Entity("Pdv.Domain.Entities.Company", b =>
+                {
+                    b.HasOne("Pdv.Domain.Entities.Company", null)
+                        .WithMany()
+                        .HasForeignKey("ReferedTo")
+                        .OnDelete(DeleteBehavior.NoAction);
                 });
 
             modelBuilder.Entity("Pdv.Domain.Entities.Devolution", b =>
@@ -509,13 +567,6 @@ namespace Pdv.Infra.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Pdv.Domain.Entities.Product", b =>
-                {
-                    b.HasOne("Pdv.Domain.Entities.Stock", null)
-                        .WithMany("Products")
-                        .HasForeignKey("StockId");
-                });
-
             modelBuilder.Entity("Pdv.Domain.Entities.SeelingPrice", b =>
                 {
                     b.HasOne("Pdv.Domain.Entities.Product", null)
@@ -530,6 +581,12 @@ namespace Pdv.Infra.Data.Migrations
                     b.HasOne("Pdv.Domain.Entities.Company", null)
                         .WithMany("Stocks")
                         .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Pdv.Domain.Entities.Product", null)
+                        .WithMany("Stocks")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
@@ -596,17 +653,14 @@ namespace Pdv.Infra.Data.Migrations
 
                     b.Navigation("SeelingPrices");
 
+                    b.Navigation("Stocks");
+
                     b.Navigation("SuppliersPurchasing");
                 });
 
             modelBuilder.Entity("Pdv.Domain.Entities.Role", b =>
                 {
                     b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("Pdv.Domain.Entities.Stock", b =>
-                {
-                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("Pdv.Domain.Entities.Supplier", b =>

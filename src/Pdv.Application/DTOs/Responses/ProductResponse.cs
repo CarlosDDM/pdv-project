@@ -3,7 +3,7 @@
 namespace Pdv.Application.DTOs.Responses;
 
 public sealed record ProductResponse(
-    Guid Id,
+    int Id,
     string? Barcode,
     string Name,
     string? Brand,

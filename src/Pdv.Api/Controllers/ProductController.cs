@@ -156,8 +156,8 @@ public sealed class ProductController : Controller
         return Ok(result.Value);
     }
 
-    [HttpGet("{id:guid}")]
-    public async Task<IActionResult> GetProductById([FromRoute] Guid id, CancellationToken ct = default)
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> GetProductById([FromRoute] int id, CancellationToken ct = default)
     {
         _logger.LogInformation("Recebida a requisição para buscar o product com Id: {ProductId}", id);
 
@@ -190,8 +190,8 @@ public sealed class ProductController : Controller
         return Ok(result.Value);
     }
 
-    [HttpPut("{id:guid}")]
-    public async Task<IActionResult> PutProduct([FromRoute] Guid id, UpdateProductRequest request, CancellationToken ct = default)
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> PutProduct([FromRoute] int id, UpdateProductRequest request, CancellationToken ct = default)
     {
         _logger.LogInformation("Recebida a requisição para atualizar o produto com Id: {ProductId}", id);
 
@@ -237,8 +237,8 @@ public sealed class ProductController : Controller
 
     }
 
-    [HttpPatch("{id:guid}/image")]
-    public async Task<IActionResult> PatchProductImage([FromRoute] Guid id, IFormFile file, CancellationToken ct = default)
+    [HttpPatch("{id:int}/image")]
+    public async Task<IActionResult> PatchProductImage([FromRoute] int id, IFormFile file, CancellationToken ct = default)
     {
         _logger.LogInformation("Recebida a requisição para atualizar a imagem do produto com Id: {ProductId}", id);
 
@@ -272,8 +272,8 @@ public sealed class ProductController : Controller
         return Ok(result.Value);
     }
 
-    [HttpDelete("{id:guid}")]
-    public async Task<IActionResult> DeleteById([FromRoute] Guid id, CancellationToken ct = default)
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> DeleteById([FromRoute] int id, CancellationToken ct = default)
     {
         _logger.LogInformation("Recebida a requisição para deletar o produto com Id: {ProductId}", id);
 

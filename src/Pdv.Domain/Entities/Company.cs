@@ -5,10 +5,10 @@ namespace Pdv.Domain.Entities;
 
 public sealed class Company
 {
-    public Guid Id { get; private set; }
+    public int Id { get; private set; }
     public string Name { get; private set; } = string.Empty;
     public string? Cnpj { get; private set; }
-    public Guid? ReferedTo { get; private set; }
+    public int? ReferedTo { get; private set; }
     public CompanyType Type { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
@@ -22,7 +22,7 @@ public sealed class Company
 
     private Company() { }
 
-    private Company (string name, CompanyType type, string? cnpj = null, Guid? referedTo = null)
+    private Company (string name, CompanyType type, string? cnpj = null, int? referedTo = null)
     {
         this.Name = name;
         this.Cnpj = cnpj;
@@ -31,7 +31,7 @@ public sealed class Company
         this.CreatedAt = DateTime.UtcNow;
     }
 
-    private Company UpdateCompany(string name, CompanyType type, string? cnpj = null, Guid? referedTo = null)
+    private Company UpdateCompany(string name, CompanyType type, string? cnpj = null, int? referedTo = null)
     {
         this.Name = name;
         this.Cnpj = cnpj;
@@ -41,7 +41,7 @@ public sealed class Company
         return this;
     }
 
-    public static Result<Company> Create(string name, CompanyType type, string? cnpj = null, Guid? referedTo = null) 
+    public static Result<Company> Create(string name, CompanyType type, string? cnpj = null, int? referedTo = null) 
     {
         if (string.IsNullOrWhiteSpace(name) || name.Length > 100)
             return Result<Company>.Fail("Nome não pode ser vazio, ou ele não pode maior que 100 caracteres.");
@@ -52,13 +52,13 @@ public sealed class Company
         if (cnpj is not null && cnpj.Length > 14)
             return Result<Company>.Fail("CNPJ inválido.");
 
-        if (referedTo is not null && referedTo == Guid.Empty)
+        if (referedTo is not null && referedTo <= 0)
             return Result<Company>.Fail("Id inválido.");
 
         return Result<Company>.Ok(new Company(name, type, cnpj, referedTo));
     }
 
-    public Result Update(string name, CompanyType type, string? cnpj = null, Guid? referedTo = null) 
+    public Result Update(string name, CompanyType type, string? cnpj = null, int? referedTo = null) 
     {
         if (string.IsNullOrWhiteSpace(name) || name.Length > 100)
             return Result<Company>.Fail("Nome não pode ser vazio, ou ele não pode maior que 100 caracteres.");
@@ -69,7 +69,7 @@ public sealed class Company
         if (cnpj is not null && cnpj.Length > 14)
             return Result<Company>.Fail("CNPJ inválido.");
 
-        if (referedTo is not null && referedTo == Guid.Empty)
+        if (referedTo is not null && referedTo <= 0)
             return Result<Company>.Fail("Id inválido.");
 
         UpdateCompany(name, type, cnpj, referedTo);

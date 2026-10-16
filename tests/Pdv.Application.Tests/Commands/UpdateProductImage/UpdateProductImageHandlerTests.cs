@@ -14,8 +14,7 @@ public sealed class UpdateProductImageHandlerTests
     private readonly ILogger<UpdateProductImageHandler> _logger = Substitute.For<ILogger<UpdateProductImageHandler>>();
     private readonly IStorageService _storage = Substitute.For<IStorageService>();
     private readonly UpdateProductImageHandler _handler;
-
-    private static readonly Guid ProductId = Guid.Parse("9AC1A6F1-4A87-4624-B5F5-B74D494E21E0");
+    private static readonly int ProductId = 1;
 
     public UpdateProductImageHandlerTests()
     {

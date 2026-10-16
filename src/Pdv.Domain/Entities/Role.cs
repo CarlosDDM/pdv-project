@@ -2,7 +2,7 @@
 
 public sealed class Role
 {
-    public Guid Id { get; private set; }
+    public int Id { get; private set; }
     public string Type { get; private set; }
 
     private readonly List<User> _users = [];

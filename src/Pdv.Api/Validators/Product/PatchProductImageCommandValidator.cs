@@ -15,7 +15,8 @@ public sealed class PatchProductImageCommandValidator : AbstractValidator<Update
     public PatchProductImageCommandValidator()
     {
         RuleFor(x => x.Id)
-            .NotEmpty().WithMessage("O Id do produto é obrigatório.");
+            .NotEmpty().WithMessage("O Id do produto é obrigatório.")
+            .GreaterThan(0).WithMessage("O Id do produto é obrigatório e não pode ser zerado ou negativo.");
 
         RuleFor(x => x.File)
             .NotNull()

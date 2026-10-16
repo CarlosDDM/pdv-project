@@ -1,6 +1,6 @@
 ﻿namespace Pdv.Application.DTOs.Requests;
 
 public sealed record CreateSeelingPriceRequest(
-    Guid ProductId,
+    int ProductId,
     decimal Price
     );

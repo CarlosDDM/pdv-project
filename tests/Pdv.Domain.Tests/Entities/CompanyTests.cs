@@ -100,7 +100,7 @@ public sealed class CompanyTests
     [Fact]
     public void Create_ReferedToValido_DeveRetornarSucessoEPersistir()
     {
-        var referedTo = Guid.NewGuid();
+        var referedTo = 1;
 
         var result = Company.Create(name, CompanyType.Matriz, referedTo: referedTo);
 
@@ -108,10 +108,12 @@ public sealed class CompanyTests
         Assert.Equal(referedTo, result.Value!.ReferedTo);
     }
 
-    [Fact]
-    public void Create_ReferedToGuidVazio_DeveFalharERetornarError()
+    [Theory]
+    [InlineData(0)]
+    [InlineData(-1)]
+    public void Create_ReferedToGuidVazio_DeveFalharERetornarError(int referedTo)
     {
-        var result = Company.Create(name, CompanyType.Matriz, referedTo: Guid.Empty);
+        var result = Company.Create(name, CompanyType.Matriz, referedTo: referedTo);
 
         Assert.True(result.IsFailure);
         Assert.Equal("Id inválido.", result.Error);
@@ -140,7 +142,7 @@ public sealed class CompanyTests
     {
         var company = CriarCompanyValido();
         var createdAt = company.CreatedAt;
-        var referedTo = Guid.NewGuid();
+        var referedTo = 1;
         var cnpj = new string('2', 14);
         var start = DateTime.UtcNow;
 
@@ -216,20 +218,9 @@ public sealed class CompanyTests
     }
 
     [Fact]
-    public void Update_ReferedToGuidVazio_DeveFalharERetornarError()
-    {
-        var company = CriarCompanyValido();
-
-        var result = company.Update(name, CompanyType.Matriz, referedTo: Guid.Empty);
-
-        Assert.True(result.IsFailure);
-        Assert.Equal("Id inválido.", result.Error);
-    }
-
-    [Fact]
     public void Update_SemCnpjEReferedTo_DeveLimparValoresAnteriores()
     {
-        var company = Company.Create(name, CompanyType.Matriz, new string('1', 14), Guid.NewGuid()).Value!;
+        var company = Company.Create(name, CompanyType.Matriz, new string('1', 14), 1).Value!;
 
         var result = company.Update(name, CompanyType.Matriz);
 
@@ -243,7 +234,7 @@ public sealed class CompanyTests
     {
         var company = CriarCompanyValido();
 
-        var result = company.Update(new string('a', 101), CompanyType.Matriz, new string('1', 14), Guid.NewGuid());
+        var result = company.Update(new string('a', 101), CompanyType.Matriz, new string('1', 14), 1);
 
         Assert.True(result.IsFailure);
         Assert.Equal(name, company.Name);

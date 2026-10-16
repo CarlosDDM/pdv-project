@@ -4,4 +4,4 @@ using Pdv.Domain.Common;
 
 namespace Pdv.Application.Queries.FindProduct;
 
-public sealed record FindProductQuery(Guid Id) : IRequest<Result<ProductResponse>>;
+public sealed record FindProductQuery(int Id) : IRequest<Result<ProductResponse>>;

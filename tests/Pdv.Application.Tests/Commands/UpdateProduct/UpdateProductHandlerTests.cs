@@ -13,7 +13,7 @@ public sealed class UpdateProductHandlerTests
 {
     private const string NomeValido = "Arroz Soltinha 1Kg update";
 
-    private static readonly Guid ProductId = Guid.Parse("9AC1A6F1-4A87-4624-B5F5-B74D494E21E0");
+    private static readonly int ProductId = 1;
 
     private readonly IProductRepository _repository = Substitute.For<IProductRepository>();
     private readonly ILogger<UpdateProductHandler> _logger = Substitute.For<ILogger<UpdateProductHandler>>();

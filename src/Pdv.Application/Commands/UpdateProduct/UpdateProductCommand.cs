@@ -6,7 +6,7 @@ using Pdv.Domain.Enums;
 namespace Pdv.Application.Commands.UpdateProduct;
 
 public sealed record UpdateProductCommand(
-    Guid Id,
+    int Id,
     string Name,
     ProductType Type,
     string? Brand,

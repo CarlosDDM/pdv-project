@@ -4,7 +4,7 @@ namespace Pdv.Domain.Tests.Entities;
 
 public sealed class SeelingPriceTests
 {
-    private static readonly Guid ProductId = Guid.Parse("9AC1A6F1-4A87-4624-B5F5-B74D494E21E0");
+    private static readonly int ProductId = 1;
 
     [Fact]
     public void Create_SeelingPriceComDadosValidos_DeveCriarSeelingPriceERetornar() 
@@ -25,11 +25,11 @@ public sealed class SeelingPriceTests
     [Fact]
     public void Create_SeelingPriceProductIdInvalido_DeveRetornarError()
     {
-        var result = SeelingPrice.Create(Guid.Empty, 20.5m);
+        var result = SeelingPrice.Create(0, 20.5m);
 
         Assert.True(result.IsFailure);
 
-        Assert.Equal("O Id do produto é obrigatório e não pode ser vazio.", result.Error);
+        Assert.Equal("O Id do produto é obrigatório e não pode ser negativo.", result.Error);
     }
 
     [Theory]

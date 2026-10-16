@@ -1,7 +1,7 @@
 ﻿namespace Pdv.Application.DTOs.Responses;
 
 public sealed record SeelingPriceResponse(
-    Guid Id,
+    int Id,
     decimal Price,
     DateTime CreatedAt
 );

@@ -4,24 +4,24 @@ namespace Pdv.Domain.Entities;
 
 public sealed class SeelingPrice
 {
-    public Guid Id { get; private set; }
-    public Guid ProductId { get; private set; }
+    public int Id { get; private set; }
+    public int ProductId { get; private set; }
     public decimal Price { get; private set; }
     public DateTime CreatedAt { get; private set; }
 
     private SeelingPrice() { }
 
-    private SeelingPrice(Guid productId, decimal price) 
+    private SeelingPrice(int productId, decimal price) 
     {
         this.ProductId = productId;
         this.Price = price;
         this.CreatedAt = DateTime.UtcNow;
     }
 
-    public static Result<SeelingPrice> Create(Guid productId, decimal price)
+    public static Result<SeelingPrice> Create(int productId, decimal price)
     {
-        if (productId == Guid.Empty)
-            return Result<SeelingPrice>.Fail("O Id do produto é obrigatório e não pode ser vazio.");
+        if (productId <= 0)
+            return Result<SeelingPrice>.Fail("O Id do produto é obrigatório e não pode ser negativo.");
 
         if (price <= 0)
             return Result<SeelingPrice>.Fail("O preço não pode ser menor ou igual a 0.");

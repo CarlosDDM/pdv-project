@@ -15,7 +15,7 @@ public sealed class FindProductHandlerTests
     private readonly ILogger<FindProductHandler> _logger = Substitute.For<ILogger<FindProductHandler>>();
     private readonly FindProductHandler _handler;
 
-    private static readonly Guid ProductId = Guid.Parse("9AC1A6F1-4A87-4624-B5F5-B74D494E21E0");
+    private static readonly int ProductId = 1;
 
     public FindProductHandlerTests()
     {
